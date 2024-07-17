@@ -57,3 +57,7 @@ CREATE TABLE 파일첨부 (
     uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '업로드 시간',
     FOREIGN KEY (post_id) REFERENCES 블로그글작성테이블(post_id)
 ) COMMENT='블로그 글에 첨부된 파일 테이블';
+
+
+
+dsfgghj
