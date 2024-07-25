@@ -1,2 +1,0 @@
-# projectHand
-echo ban
