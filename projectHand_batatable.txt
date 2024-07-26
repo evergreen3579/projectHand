@@ -37,6 +37,12 @@
 주소/좌표    address         (null 도가능한 타입)
 
 
+
+CREATE DATABASE hand;
+USE hand;
+
+
+
 CREATE TABLE user (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     ID VARCHAR(255) UNIQUE,
@@ -48,15 +54,14 @@ CREATE TABLE user (
     role ENUM('admin', 'moderator', 'member') NOT NULL
 );
 
-CREATE TABLE board (
+CREATE TABLE IF NOT EXISTS board (
     board_id INT AUTO_INCREMENT PRIMARY KEY,
     board_name VARCHAR(255),
     board_desc VARCHAR(50),
     user_id INT,
-    post_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
-    FOREIGN KEY (post_id) REFERENCES post(post_id)
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE SET NULL
 );
+
 
 
 CREATE TABLE post (
@@ -70,3 +75,9 @@ CREATE TABLE post (
     FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (board_id) REFERENCES board(board_id)
 );
+
+ALTER TABLE post
+ADD CONSTRAINT FK_post_board
+FOREIGN KEY (board_id) REFERENCES board(board_id)
+ON DELETE SET NULL;
+
