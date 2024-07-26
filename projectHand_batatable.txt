@@ -1,0 +1,72 @@
+{{MySQL 쿼리}}
+테이블 이름:user
+[인수]
+논리이름     물리 이름       타입
+기본 키       user_id          Int	      PRIMARY KEY
+이이디        ID                UNIQUE
+비밀번호     PW               varchar(255)
+이름          name            varchar(255)
+성별          gander          ENUM            (male/female) NOT NULL
+생년월일     birth            datetime
+조번호       team_num      bigint
+권한          role              ENUM           (admin/moderator/member) NOT NULL
+
+
+테이블 이름:board
+[인수]
+논리이름      물리 이름        타입
+기본키         board_id         int              PRIMARY KEY
+게시판이름    board_name    varchar(255)
+게시판설명    board_desc     varchar(50)
+권한            user_id           int              Foreign Key:user테이블과 연결
+게시판형식    post_id          int               Foreign Key:post테이블과 연결
+
+
+
+
+  
+테이블 이름:post
+[인수]
+논리이름      물리 이름       타입
+기본키        post_id          int                           PRIMARY KEY
+제목           title              varchar(255)
+내용           content         varchar(255)
+작성기간      create_time    Datetime
+작성자        user_id          int                           Foreign Key:user 테이블과 연결
+게시판        board_id        int                           Foreign Key:board 테이블과 연결)
+주소/좌표    address         (null 도가능한 타입)
+
+
+CREATE TABLE user (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    ID VARCHAR(255) UNIQUE,
+    PW VARCHAR(255),
+    name VARCHAR(255),
+    gander ENUM('male', 'female') NOT NULL,
+    birth DATETIME,
+    team_num BIGINT,
+    role ENUM('admin', 'moderator', 'member') NOT NULL
+);
+
+CREATE TABLE board (
+    board_id INT AUTO_INCREMENT PRIMARY KEY,
+    board_name VARCHAR(255),
+    board_desc VARCHAR(50),
+    user_id INT,
+    post_id INT,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (post_id) REFERENCES post(post_id)
+);
+
+
+CREATE TABLE post (
+    post_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    content VARCHAR(255),
+    create_time DATETIME,
+    user_id INT,
+    board_id INT,
+    address VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (board_id) REFERENCES board(board_id)
+);
