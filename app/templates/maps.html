@@ -1,0 +1,113 @@
+<!-- templates/Naver_API_Test.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Naver Map API Test</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zn9kw6wgb"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="map" style="width:100%;height:70vh;"></div>
+    <div id="markerInfo">
+        <p><strong>현재 좌표:</strong> <span id="currentCoords"></span></p>
+        <p><strong>주소:</strong> <span id="currentAddress"></span></p>
+    </div>
+    <button id="registerMarker">등록하기</button>
+
+    <script>
+    var map;
+    var marker;
+
+    function initMap() {
+        var defaultPosition = new naver.maps.LatLng(37.571054, 126.992124);
+
+        map = new naver.maps.Map('map', {
+            center: defaultPosition,
+            zoom: 15
+        });
+
+        // 초기 마커 생성
+        marker = new naver.maps.Marker({
+            position: defaultPosition,
+            map: map,
+            draggable: false // 드래그 불가능하도록 설정
+        });
+
+        // 지도 클릭 이벤트
+        naver.maps.Event.addListener(map, 'click', function(e) {
+            marker.setPosition(e.coord);
+            var markerPosition = marker.getPosition();
+            // 좌표를 표시
+            $('#currentCoords').text(markerPosition.lat() + ', ' + markerPosition.lng());
+            // 좌표를 주소로 변환하여 표시
+            getAddressFromCoords(markerPosition);
+        });
+
+        // 등록 버튼 클릭 이벤트
+        $('#registerMarker').click(function() {
+            var markerPosition = marker.getPosition();
+            saveMarkerPosition(markerPosition.lat(), markerPosition.lng());
+        });
+
+        // 초기 위치 정보 표시
+        displayMarkerInfo(defaultPosition);
+    }
+
+    function getAddressFromCoords(coords) {
+        // AJAX를 사용하여 좌표를 주소로 변환
+        $.ajax({
+            url: 'https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc',
+            type: 'GET',
+            headers: {
+                'X-NCP-APIGW-API-KEY-ID': '2zn9kw6wgb',
+                'X-NCP-APIGW-API-KEY': '1reWJKifeLvnx4JYcm7V8dVn0UIqY7wRKhy5lBSs'
+            },
+            data: {
+                coords: coords.lng() + ',' + coords.lat(),
+                orders: 'roadaddr,addr,legalcode',
+                output: 'json'
+            },
+            success: function(response) {
+                var address = response.results[0].region.area1.name + ' ' + response.results[0].land.name;
+                $('#currentAddress').text(address);
+            },
+            error: function(xhr, status, error) {
+                console.error('주소 변환 중 오류 발생:', error);
+            }
+        });
+    }
+
+    function saveMarkerPosition(latitude, longitude) {
+        // AJAX를 사용하여 서버에 좌표를 저장합니다.
+        $.ajax({
+            url: '/save_marker',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                latitude: latitude,
+                longitude: longitude
+            }),
+            success: function(response) {
+                alert('마커 좌표가 성공적으로 저장되었습니다.');
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                alert('서버에 마커 좌표를 저장하는 중 오류가 발생하였습니다.');
+                console.error(error);
+            }
+        });
+    }
+
+    function displayMarkerInfo(coords) {
+        // 좌표를 표시
+        $('#currentCoords').text(coords.lat() + ', ' + coords.lng());
+        // 좌표를 주소로 변환하여 표시
+        getAddressFromCoords(coords);
+    }
+
+    // 지도 초기화 함수 실행
+    initMap();
+    </script>
+</body>
+</html>
