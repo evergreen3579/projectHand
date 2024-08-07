@@ -1,10 +1,13 @@
 from flask import Flask, render_template
-from .views.maps import maps_bp  # 상대 경로로 수정
+from .views.maps import maps_bp  # 상대 경로로 블루프린트 가져오기
+from db.connector import init_app  # 데이터베이스 초기화 함수 가져오기
 
 # Flask 애플리케이션을 생성하는 함수
 def create_app():
     app = Flask(__name__)
 
+    # 데이터베이스 초기화
+    init_app(app)
 
     # 블루프린트 등록
     app.register_blueprint(maps_bp)
@@ -23,4 +26,3 @@ def create_app():
         return render_template('maps.html')
 
     return app
-

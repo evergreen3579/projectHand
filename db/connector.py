@@ -1,9 +1,18 @@
-# db/connector.py
+from flask import Flask
+from . import db  # db 인스턴스 가져오기
 
-from flask_sqlalchemy import SQLAlchemy
+# 데이터베이스 모델 정의
+class Location(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
 
-# SQLAlchemy 객체를 생성합니다.
-db = SQLAlchemy()
+def init_app(app: Flask):
+    # MySQL 데이터베이스 설정
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:1234@localhost/hand'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
 
-# 기타 데이터베이스 관련 설정을 추가할 수 있습니다.
-# 예를 들어, 데이터베이스 URI 설정 등을 이곳에 추가할 수 있습니다.
+    with app.app_context():
+        db.create_all()  # 데이터베이스 테이블 생성
