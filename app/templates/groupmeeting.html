@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAND Groupmeeting Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="login-info">
+                <button>로그인</button>
+                <button>정보 확인/수정</button>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li>공지사항</a></li>
+                    <li>자유게시판</a></li>
+                    <li>건의사항</a></li>
+                    <li><a href="{{ url_for('groupmeeting') }}">조 모임</a></li>
+                    <li>잉여 게시판</a></li>
+                </ul>
+            </div>
+            <button class="logout">로그아웃</button>
+        </div>
+    <div class="content">
+        <h1>HAND</h1>
+        <div class="header">
+            <div>현재 로그인 된 정보는 퇴장 입니다.</div>
+            <button>[1]</button>
+        </div>
+        <button>1조</button>
+        <div class="map-container">
+            <img src="https://via.placeholder.com/600x400" alt="Map">
+        </div>
+        <button>다른조 확인하기</button>
+        <div class="team-list">
+            <ul>
+                <li>이름A</li>
+                <li>이름B</li>
+                <li>이름C</li>
+                <li>이름D</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

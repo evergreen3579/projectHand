@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 상세보기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .content-box {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .file-box {
+            margin-top: 20px;
+        }
+        button, a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        button:hover, a:hover {
+            background-color: #0056b3;
+        }
+        a.cancel {
+            background-color: #6c757d;
+        }
+        a.cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 제목 표시 -->
+        <h1>제목: {{ notice.title }}</h1>
+        <p>작성자: {{ notice.user_id }} | 작성 시간: {{ notice.writetime }}</p>
+
+        <!-- 내용 표시 -->
+        <div class="content-box">
+            <h3>내용:</h3>
+            <div>{{ notice.content | safe }}</div>
+        </div>
+
+        <!-- 첨부파일 보기 및 다운로드 -->
+        {% if notice.file_path %}
+        <div class="file-box">
+            <h3>첨부 파일:</h3>
+            <p><a href="{{ url_for('notice_bp.view_file', filename=notice.file_path.split('/')[-1]) }}">첨부 파일 미리보기 및 다운로드</a></p>
+        </div>
+        {% endif %}
+
+        <!-- 버튼 섹션 -->
+        <a href="/notice" class="cancel">목록으로 돌아가기</a>
+    </div>
+</body>
+</html>

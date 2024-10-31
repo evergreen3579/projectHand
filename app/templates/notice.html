@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="board" style="width: 90%; max-width: 1200px; margin: 0 auto; padding: 40px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);">
+    <form method="POST" action="{{ url_for('notice_bp.delete_notice') }}">
+        <table style="width: 100%; table-layout: auto; border-collapse: collapse; font-size: 12px;">
+            <thead>
+                <tr>
+                    <th style="width: 5%; padding: 15px; text-align: center;">삭제 선택</th>
+                    <th style="width: 15%; padding: 15px; text-align: center;">작성자</th>
+                    <th style="width: 40%; padding: 15px; text-align: center;">제목</th>
+                    <th style="width: 45%; padding: 15px; text-align: center;">작성 시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td style="padding: 15px; text-align: center;">
+                        <input type="checkbox" name="notice_ids" value="{{ post.id }}">
+                    </td>
+                    <td style="padding: 15px; text-align: center;">
+                        <a href="{{ url_for('notice_bp.notice_detail', notice_id=post.id) }}" style="text-decoration: none; color: inherit;">
+                            {{ post.user_id }}
+                        </a>
+                    </td>
+                    <td style="padding: 15px; text-align: center;">
+                        <a href="{{ url_for('notice_bp.notice_detail', notice_id=post.id) }}" style="text-decoration: none; color: inherit;">
+                            {{ post.title }}
+                        </a>
+                    </td>
+                    <td style="padding: 15px; text-align: center;">{{ post.writetime }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="buttons" style="margin-top: 20px; text-align: right;">
+            <button type="submit" style="padding: 10px 20px; font-size: 14px;">글삭제</button>
+            <a href="{{ url_for('notice_bp.notice_write') }}" class="btn" style="padding: 10px 20px; font-size: 14px;">글쓰기</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

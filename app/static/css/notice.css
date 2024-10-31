@@ -1,0 +1,53 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.board {
+    width: 600px;
+    background-color: #FFFFFF;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 50px auto; /* 가운데 정렬을 위해 변경 */
+    border: 1px solid #ddd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.buttons a.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    text-decoration: none; /* 텍스트 밑줄 제거 */
+    display: inline-block; /* 버튼 스타일 적용 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.buttons button:hover {
+    background-color: #45a049;
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 작성</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .container label {
+            display: block;
+            text-align: left;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .container input, .container textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .container button {
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .container button:active {
+            transform: scale(0.98);
+        }
+        .container .submit-btn {
+            background-color: #007BFF;
+            color: white;
+        }
+        .container .cancel-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>글 작성</h1>
+        <form>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title">
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="15"></textarea>
+            <button type="submit" class="submit-btn">작성</button>
+            <button type="button" class="cancel-btn">취소</button>
+        </form>
+    </div>
+</body>
+</html>
+이건 글작성 페이지야

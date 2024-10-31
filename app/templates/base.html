@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAND Main Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/notice.css') }}"> <!--형준 추가 -->
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar-inner">
+                <div class="login-info">
+                    <button>로그인</button>
+                    <button>정보 확인/수정</button>
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li>공지사항</li>
+                        <li>자유게시판</li>
+                        <li>건의사항</li>
+                        <li><a href="{{ url_for('groupmeeting') }}">조 모임</a></li>
+                        <li><a href="{{ url_for('maps') }}">잉여 게시판</a></li>
+                        <li><a href="{{ url_for('notice_bp.show_notice') }}">공지사항</a></li><!--형준 추가 -->
+                    </ul>
+                </div>
+                <button class="logout">로그아웃</button>
+            </div>
+        </div>
+        <div class="main-content">
+            <header>
+                <h1>HAND</h1>
+            </header>
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>
